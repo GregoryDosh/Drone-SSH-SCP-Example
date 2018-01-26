@@ -1,0 +1,19 @@
+clone:
+  git:
+    image: plugins/git
+    depth: 1
+
+pipeline:
+  randomly-named-scp-action:
+    image: appleboy/drone-scp
+    host: 172.16.16.75
+    secrets: [ SSH_USERNAME, SSH_PASSWORD ]
+    target: ~/
+    source: file_to_copy.md
+
+  randomly-named-ssh-action:
+    image: appleboy/drone-ssh
+    host: 172.16.16.75
+    secrets: [ SSH_USERNAME, SSH_PASSWORD ]
+    script:
+      - cat ~/file_to_copy.md
